@@ -1,0 +1,172 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Early Stage Detection of Breast Cancer Using Machine Learning}
+\author{Subrata Debnath}
+\date{May 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Abstract}
+
+Breast cancer remains a leading cause of mortality worldwide, particularly in low-resource settings like Bangladesh, where late-stage diagnosis is prevalent. This study proposes a machine learning-based Computer-Aided Diagnosis (CAD) system for early breast cancer detection using the Wisconsin Breast Cancer Diagnostic (WBCD) dataset. Supervised algorithms (Random Forest, SVM, KNN, Logistic Regression, Naïve Bayes) and deep learning models (Artificial Neural Network, Convolutional Neural Network) were evaluated with and without Principal Component Analysis (PCA). Results show deep learning models outperformed traditional methods, achieving 98.83% accuracy (CNN) and 100% recall (ANN). The study highlights the potential of integrating FNA-based automated systems into clinical workflows to improve early diagnosis and survival rates.
+
+\section*{Keywords}
+
+Breast cancer detection, machine learning, deep learning, Computer-Aided Diagnosis (CAD), Fine Needle Aspiration (FNA)
+
+
+
+\section{Introduction}
+Breast cancer constitutes approximately 25\% of global cancer cases among women. Late-stage diagnosis significantly contributes to high mortality rates, particularly in developing countries such as Bangladesh. The traditional manual analysis of medical imaging is often time-consuming and susceptible to human error, highlighting the urgent need for automated diagnostic solutions.
+
+Machine learning (ML) presents promising avenues for improving the accuracy and efficiency of breast cancer diagnosis. In this study, we aim to:
+
+\begin{itemize}
+    \item Compare machine learning and deep learning algorithms for breast cancer classification.
+    \item Evaluate the effect of Principal Component Analysis (PCA) on the performance of classification models.
+    \item Propose a computer-aided diagnosis (CAD) system to support early detection in resource-constrained environments.
+\end{itemize}
+
+
+\section{Related Work}
+
+Prior studies have extensively explored the application of machine learning (ML) in breast cancer diagnosis. Key contributions include:
+
+\begin{itemize}
+    \item Liu Lei (2018) achieved 96.5\% accuracy using Logistic Regression on the Wisconsin Breast Cancer Dataset (WBCD).
+    \item Zemouri et al. (2018) combined feature selection with deep learning techniques to enhance recurrence prediction.
+    \item Artificial Neural Networks (ANN) and Support Vector Machines (SVM) demonstrated high accuracy in malignancy classification (Janghel et al., 2010; Hussain et al., 2011).
+\end{itemize}
+
+Despite significant advancements, challenges persist in optimizing deep learning models for small datasets and achieving seamless integration into clinical workflows.
+
+
+\section{Methodology}
+
+\subsection{Dataset}
+
+The Wisconsin Breast Cancer Dataset (WBCD) comprises 569 Fine Needle Aspiration (FNA) samples, each described by 30 numerical features—representing the mean, standard error (SE), and worst values of 10 cytological characteristics. The dataset is imbalanced, with 357 benign samples (62\%) and 212 malignant samples (38\%).
+
+\subsection{Preprocessing}
+
+\begin{itemize}
+    \item \textbf{Categorical Conversion:} Label encoding was applied to convert the diagnosis labels, where malignant (M) was mapped to 1 and benign (B) to 0.
+    
+    \item \textbf{Feature Scaling:} Standardization was performed using the z-score formula:
+    \[
+    z = \frac{x - \mu}{\sigma}
+    \]
+    where \( x \) is the original value, \( \mu \) is the mean, and \( \sigma \) is the standard deviation.
+    
+    \item \textbf{PCA:} Principal Component Analysis (PCA) was applied to reduce the 30 features to 8 principal components for use in traditional ML models.
+    
+    \item \textbf{Data Splitting:} The dataset was divided into training and testing sets using a 70:30 ratio.
+\end{itemize}
+
+\subsection{Algorithms}
+
+\begin{itemize}
+    \item \textbf{Traditional Machine Learning:} The following classifiers were implemented:
+    \begin{itemize}
+        \item Random Forest (RF)
+        \item Support Vector Machine (SVM)
+        \item K-Nearest Neighbors (KNN)
+        \item Logistic Regression
+        \item Gaussian Naïve Bayes
+    \end{itemize}
+    
+    \item \textbf{Deep Learning:}
+    \begin{itemize}
+        \item \textbf{Artificial Neural Network (ANN):} Comprised of 3 fully connected dense layers using ReLU and Sigmoid activation functions.
+        \item \textbf{Convolutional Neural Network (CNN):} The input was reshaped into a 3D format, and convolutional layers were used for feature extraction and classification.
+    \end{itemize}
+\end{itemize}
+
+
+\section{Results}
+
+\subsection{Performance Metrics}
+
+Models were evaluated using accuracy, precision, recall, F1-score, and Area Under the ROC Curve (AUC). Table~\ref{tab:performance} summarizes the performance of each model.
+
+\begin{table}[h!]
+\centering
+\caption{Performance Comparison of ML and DL Models}
+\label{tab:performance}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Model} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-Score} & \textbf{AUC} \\
+\hline
+Random Forest & 94.11\% & 94.97\% & 94.11\% & 94.04\% & 99.0\% \\
+SVM & 97.05\% & 97.34\% & 97.05\% & 97.01\% & 99.7\% \\
+KNN & 97.12\% & 97.50\% & 97.12\% & 97.06\% & 99.5\% \\
+Logistic Regression & 96.54\% & 97.02\% & 96.54\% & 96.51\% & 99.8\% \\
+ANN & 97.66\% & 93.65\% & 100\% & 96.72\% & 98.2\% \\
+CNN & \textbf{98.83\%} & 98.44\% & 98.44\% & 98.44\% & 98.8\% \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Key Findings}
+
+\begin{itemize}
+    \item \textbf{Deep Learning Superiority:} The CNN model achieved the highest accuracy (98.83\%), while the ANN model attained a perfect recall (100\%), indicating zero false negatives.
+    
+    \item \textbf{PCA Impact:} Performance declined for some traditional ML models like Random Forest and SVM after applying PCA, while Logistic Regression benefited with improved accuracy (97.68\%).
+    
+    \item \textbf{Clinical Relevance:} The high recall scores of ANN and CNN are particularly significant for clinical applications, as they reduce the risk of missed malignant cases—critical for early detection and treatment.
+\end{itemize}
+
+\section{Discussion}
+
+The results are consistent with previous research (e.g., Xiao et al., 2018), which found deep learning models to be highly effective in automatic feature extraction for medical imaging tasks. In this study, the superior performance of CNN and ANN further reinforces the potential of deep learning in breast cancer classification.
+
+However, limitations in dataset size underscore the need for larger and more diverse datasets to improve model generalizability across different populations and imaging conditions. 
+
+Additionally, the mixed impact of Principal Component Analysis (PCA) indicates that the effectiveness of dimensionality reduction is highly dependent on the underlying algorithm. While Logistic Regression showed improved performance, other models such as Random Forest and SVM experienced slight declines, suggesting that algorithm-specific evaluation is crucial when applying PCA.
+
+\section{References}
+
+\begin{enumerate}
+    \item Abdi, H., \& Williams, L. J. (2009). Principal component analysis. \textit{Encyclopedia of Biometrics}.
+    \item Altman, N. S. (1992). An introduction to kernel and nearest-neighbor nonparametric regression. \textit{The American Statistician, 46}(3), 175–185.
+    \item Barandiaran, I. (1998). The random subspace method for constructing decision forests. \textit{IEEE Transactions on Pattern Analysis and Machine Intelligence, 20}(8).
+    \item Bellaachia, A., \& Guven, E. (2006). Predicting breast cancer survivability using data mining techniques. \textit{Age, 58}(13), 10–110.
+    \item Delen, D., Walker, G., \& Kadam, A. (2005). Predicting breast cancer survivability: A comparison of three data mining methods. \textit{Artificial Intelligence in Medicine, 34}(2), 113–127.
+    \item Ferlay, J., et al. (2011). Globocan 2008, cancer incidence and mortality worldwide: IARC CancerBase No. 10. \textit{International Agency for Research on Cancer}.
+    \item Friedman, J., Hastie, T., \& Tibshirani, R. (2001). \textit{The elements of statistical learning}. Springer.
+    \item Gholami, V., et al. (2015). Modeling of groundwater level fluctuations using dendrochronology in alluvial aquifers. \textit{Journal of Hydrology, 529}, 1060–1069.
+    \item Ho, T. K. (1995). Random decision forests. \textit{Proceedings of the Third International Conference on Document Analysis and Recognition, 1}, 278–282.
+    \item Hosmer Jr, D. W., Lemeshow, S., \& Sturdivant, R. X. (2013). \textit{Applied logistic regression}. Wiley.
+    \item Hussain, M., et al. (2011). A comparison of SVM kernel functions for breast cancer detection. \textit{IEEE International Conference on Computer Graphics, Imaging and Visualization}.
+    \item Janghel, R., et al. (2010). Breast cancer diagnosis using artificial neural network models. \textit{International Conference on Information Sciences and Interaction Sciences}.
+    \item Kharya, S., \& Soni, S. (2016). Weighted naive Bayes classifier: A predictive model for breast cancer detection. \textit{International Journal of Computer Applications, 133}(9), 32–37.
+    \item Kohavi, R. (1998). Glossary of terms. \textit{Machine Learning, 30}(271), 127–132.
+    \item Liu, L. (2018). Research on logistic regression algorithm of breast cancer diagnose data by machine learning. \textit{IEEE International Conference on Robots \& Intelligent System (ICRIS)}.
+    \item Lundin, M., et al. (1999). Artificial neural networks applied to survival prediction in breast cancer. \textit{Oncology, 57}(4), 281–286.
+    \item Marsilin, J. R., \& Jiji, G. W. (2012). An efficient CBIR approach for diagnosing breast cancer using KNN classifier. \textit{Bonfring International Journal of Advances in Image Processing, 2}(1), 1–5.
+    \item Powers, D. M. (2011). Evaluation: From precision, recall and F-measure to ROC, informedness, markedness, and correlation. \textit{Journal of Machine Learning Technologies}.
+    \item Rennie, J. D., et al. (2003). Tackling the poor assumptions of naive Bayes text classifiers. \textit{ICML}.
+    \item Samuel, A. L. (1959). Some studies in machine learning using the game of checkers. \textit{IBM Journal of Research and Development, 3}(3), 210–229.
+    \item Torre, L. A., et al. (2015). Global cancer statistics, 2012. \textit{CA: A Cancer Journal for Clinicians, 65}(2), 87–108.
+    \item Uddin, A. K., et al. (2013). Cancer care scenario in Bangladesh. \textit{South Asian Journal of Cancer, 2}(2), 102.
+    \item van Gerven, M., \& Bohte, S. (2018). Artificial neural networks as models of neural information processing. \textit{Frontiers Media}.
+    \item Wolberg, W., et al. (1992). Breast Cancer Wisconsin (Diagnostic) Data Set. \textit{UCI Machine Learning Repository}.
+    \item Wu, X., et al. (2008). Top 10 algorithms in data mining. \textit{Knowledge and Information Systems, 14}(1), 1–37.
+    \item Xiao, Y., et al. (2018). Breast cancer diagnosis using an unsupervised feature extraction algorithm based on deep learning. \textit{Chinese Control Conference (CCC)}.
+    \item Zemouri, R., et al. (2018). Breast cancer diagnosis based on joint variable selection and constructive deep neural network. \textit{IEEE Middle East Conference on Biomedical Engineering (MECBME)}.
+    \item Zhou, Z.-H., et al. (2003). Medical diagnosis with C4.5 rule preceded by artificial neural network ensemble. \textit{IEEE Transactions on Information Technology in Biomedicine, 7}(1), 37–42.
+    \item Esteva, A., et al. (2017). Dermatologist-level classification of skin cancer with deep neural networks. \textit{Nature, 542}(7639), 115–118.
+    \item Litjens, G., et al. (2017). A survey on deep learning in medical image analysis. \textit{Medical Image Analysis, 42}, 60–88.
+    \item Rajkomar, A., et al. (2018). Machine learning in medicine. \textit{New England Journal of Medicine, 378}(14), 1347–1358.
+    \item McKinney, S. M., et al. (2020). International evaluation of an AI system for breast cancer screening. \textit{Nature, 577}(7788), 89–94.
+    \item Alzubaidi, L., et al. (2021). Review of deep learning: Concepts, CNN architectures, challenges, applications, future directions. \textit{Journal of Big Data, 8}(1), 1–74.
+    \item Hussain, S., et al. (2021). Machine learning and deep learning in cancer diagnosis: A review. \textit{IEEE Access, 9}, 134314–134334.
+    \item World Health Organization. (2020). \textit{Breast cancer screening: IARC Handbook of Cancer Prevention}.
+\end{enumerate}
+
+
+\end{document}
